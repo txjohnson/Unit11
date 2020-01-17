@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Game.gd" type="Script" id=1]
+[ext_resource path="res://fonts/DefaultFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://objects/Paddle.tscn" type="PackedScene" id=3]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+polygon = PoolVector2Array( 0, 720, 0, 0, 1280, 0, 1280, 720, 1330, 720, 1330, -50, -50, -50, -50, 720 )
+
+[node name="HUD" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Score" type="RichTextLabel" parent="HUD"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 251.964
+margin_bottom = 48.0
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Score: 0"
+
+[node name="Health" type="RichTextLabel" parent="HUD"]
+margin_left = 300.0
+margin_top = 8.0
+margin_right = 526.0
+margin_bottom = 48.0
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Health: 100"
+
+[node name="Level" type="RichTextLabel" parent="HUD"]
+margin_left = 1100.0
+margin_top = 8.0
+margin_right = 1259.56
+margin_bottom = 48.0
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Level: 1"
+
+[node name="Instructions" type="RichTextLabel" parent="HUD"]
+margin_left = 440.0
+margin_top = 680.0
+margin_right = 840.0
+margin_bottom = 728.0
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Press left mouse button to launch a ball."
+
+[node name="Balls" type="Node" parent="."]
+
+[node name="Paddle" parent="." instance=ExtResource( 3 )]
+position = Vector2( 620, 660 )
+
+[node name="Bricks" type="Node2D" parent="."]
+[connection signal="launch_a_ball" from="Paddle" to="." method="_on_Paddle_launch_a_ball"]
